@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -30,6 +32,23 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+        // 認証エラー
+        if ($exception instanceof AuthenticationException) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], 401);
+        }
+
+        // バリデーションエラー
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                'success' => false,
+                'errors'  => $exception->validator->errors()->messages()
+            ], 422);
+        }
+
+        // その他
         if ($exception instanceof \Exception) {
             return response()->json([
                 'success' => false,
