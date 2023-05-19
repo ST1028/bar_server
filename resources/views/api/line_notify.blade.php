@@ -2,6 +2,11 @@
 📝ご注文内容
 ■{{$menu->name}} @if ($blend)({{$blend->name}})@endif
 
+@if ($remarks)
+    【備考】
+    {{$remarks}}
+@endif
+
 @if ($menu->recipe)
     【作り方】
     {{$menu->recipe}}

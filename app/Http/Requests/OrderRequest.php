@@ -25,7 +25,8 @@ class OrderRequest extends FormRequest
             'menu_id'      => ['required', 'numeric', 'exists:menus,id'],
             'friend_ids'   => ['required', 'array'],
             'friend_ids.*' => ['required', 'exists:friends,id'],
-            'blend_id'     => ['nullable', 'numeric', 'exists:blends,id']
+            'blend_id'     => ['nullable', 'numeric', 'exists:blends,id'],
+            'remarks'      => ['nullable', 'string']
         ];
     }
 }

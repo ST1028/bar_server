@@ -32,7 +32,11 @@ class MenuCategoryRepository
      */
     public function getActiveAll(): Collection
     {
-        return $this->model->with('menus')->where('is_active', 1)->get();
+        return $this->model
+            ->with('menus')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->get();
     }
 
     /**

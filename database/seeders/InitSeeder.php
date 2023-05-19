@@ -16,16 +16,17 @@ class InitSeeder extends Seeder
     ];
 
     const MenuCategories = [
-        ['id' => 1, 'name' => 'ビール', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 1],
-        ['id' => 2, 'name' => 'ワイン', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 2],
-        ['id' => 3, 'name' => 'ウィスキー', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 3],
-        ['id' => 4, 'name' => '日本酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 4],
-        ['id' => 5, 'name' => '果実酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 5],
-        ['id' => 6, 'name' => 'ビールカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 7],
-        ['id' => 7, 'name' => 'カクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 6],
-        ['id' => 8, 'name' => 'ノンアル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 9],
-        ['id' => 9, 'name' => 'ソフトドリンク', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 10],
-        ['id' => 10, 'name' => 'ワインカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 8],
+        ['id' => 1, 'name' => 'ビール', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 2],
+        ['id' => 2, 'name' => 'ワイン', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 3],
+        ['id' => 3, 'name' => 'ウィスキー', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 4],
+        ['id' => 4, 'name' => '日本酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 5],
+        ['id' => 5, 'name' => '果実酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 6],
+        ['id' => 6, 'name' => 'ビールカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 8],
+        ['id' => 7, 'name' => 'カクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 7],
+        ['id' => 8, 'name' => 'ノンアル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 10],
+        ['id' => 9, 'name' => 'ソフトドリンク', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 11],
+        ['id' => 10, 'name' => 'ワインカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 9],
+        ['id' => 11, 'name' => '期間限定', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 1],
     ];
 
     const Menus = [
@@ -92,6 +93,10 @@ class InitSeeder extends Seeder
         ['name' => 'グレープバイン(グレフル✖️レモン✖️グレナデン)', 'menu_category_id' => 7, 'price' => 300, 'recipe' => '', 'description' => ''],
         ['name' => 'ディタエイジア(レモン✖️烏龍茶)', 'menu_category_id' => 7, 'price' => 300, 'recipe' => '', 'description' => ''],
         ['name' => 'ジンフィズ(レモン✖️シュガー✖️ソーダ)', 'menu_category_id' => 7, 'price' => 300, 'recipe' => '', 'description' => ''],
+        ['name' => '¥250メニュー', 'menu_category_id' => 11, 'price' => 250, 'recipe' => '', 'description' => ''],
+        ['name' => '¥300メニュー', 'menu_category_id' => 11, 'price' => 300, 'recipe' => '', 'description' => ''],
+        ['name' => '¥350メニュー', 'menu_category_id' => 11, 'price' => 350, 'recipe' => '', 'description' => ''],
+        ['name' => '¥400メニュー', 'menu_category_id' => 11, 'price' => 400, 'recipe' => '', 'description' => ''],
     ];
 
     const Blends = [

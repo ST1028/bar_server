@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('recipe')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_remarks_required')->default(false);
             $table->string('thumbnail')->nullable();
             $table->timestamps();
             $table->softDeletes();

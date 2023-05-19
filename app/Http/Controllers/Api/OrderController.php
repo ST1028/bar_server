@@ -58,6 +58,7 @@ class OrderController extends Controller
             $menuId = $request->input('menu_id');
             $blendId = $request->input('blend_id');
             $menu = $this->menuService->getById($menuId);
+            $remarks = $request->input('remarks', '');
             $blend = $blendId != null ? $menu->blends()->where('blend_id', $blendId)->first(): null;
             $friends = $request->user()->friends()->whereIn('id', $request->input('friend_ids', []))->get();
             foreach ($request->input('friend_ids', []) as $friendId) {
@@ -65,11 +66,12 @@ class OrderController extends Controller
                     'friend_id' => $friendId,
                     'menu_id'   => $menuId,
                     'blend_id'  => $blendId,
-                    'price'     => $menu->price
+                    'price'     => $menu->price,
+                    'remarks'   => $remarks,
                 ]);
             }
             $lineNoticeText = (string) view('api.line_notify',
-                compact('friends', 'blend', 'menu')
+                compact('friends', 'blend', 'menu', 'remarks')
             );
             $this->lineNotifyService->handle($lineNoticeText);
             return new ResultResource((object)['result' => true]);
