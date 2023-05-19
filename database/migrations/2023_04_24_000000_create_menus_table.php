@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('menu_category_id');
             $table->string('name');
             $table->integer('price');
+            $table->string('recipe')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('thumbnail')->nullable();

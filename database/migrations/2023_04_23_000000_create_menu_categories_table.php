@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('order');
             $table->string('thumbnail');
+            $table->string('default_menu_thumbnail');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

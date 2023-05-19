@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property string $thumbnail
+ * @property string $default_menu_thumbnail
+ * @property int $order
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -36,6 +38,11 @@ class MenuCategory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
+        'default_menu_thumbnail',
+        'thumbnail',
+        'order',
+        'is_active'
     ];
 
     public function menus(): HasMany
