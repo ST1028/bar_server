@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_categories', function (Blueprint $table) {
+        Schema::create('blend_menu', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('order');
-            $table->string('thumbnail');
-            $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('blend_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('blend_id')->references('id')->on('blends');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_categories');
+        Schema::dropIfExists('blend_menu');
     }
 };

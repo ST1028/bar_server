@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Menu
@@ -15,9 +16,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $price
  * @property string|null $description
  * @property int $is_active
+ * @property string $thumbnail
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Blend[] $blends
  * @method static \Illuminate\Database\Eloquent\Builder|Menu newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Menu newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Menu query()
@@ -48,5 +51,10 @@ class Menu extends Model
     public function menuCategory(): BelongsTo
     {
         return $this->belongsTo(MenuCategory::class);
+    }
+
+    public function blends(): BelongsToMany
+    {
+        return $this->belongsToMany(Blend::class);
     }
 }

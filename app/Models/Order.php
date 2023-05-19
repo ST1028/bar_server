@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $id
  * @property int $friend_id
  * @property int $menu_id
+ * @property int $blend_id
  * @property int $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -41,11 +42,15 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'menu_id',
+        'friend_id',
+        'price',
+        'blend_id'
     ];
 
-    public function menu(): HasOne
+    public function menu(): BelongsTo
     {
-        return $this->hasOne(Menu::class);
+        return $this->belongsTo(Menu::class);
     }
 
     public function friend(): BelongsTo

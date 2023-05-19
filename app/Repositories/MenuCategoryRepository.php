@@ -2,24 +2,25 @@
 
 namespace App\Repositories;
 
-use App\Models\Order;
+use App\Models\Menu;
+use App\Models\MenuCategory;
 use Illuminate\Support\Collection;
 
-class OrderRepository
+class MenuCategoryRepository
 {
-    /** @var Order */
-    protected Order $model;
+    /** @var MenuCategory */
+    protected MenuCategory $model;
 
     /**
-     * @param Order $model
+     * @param MenuCategory $model
      */
-    public function __construct(Order $model)
+    public function __construct(MenuCategory $model)
     {
         $this->model = $model;
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|MenuCategory[]
      */
     public function getAll(): Collection
     {
@@ -27,27 +28,27 @@ class OrderRepository
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|MenuCategory[]
      */
     public function getActiveAll(): Collection
     {
-        return $this->model->where('status', 1)->get();
+        return $this->model->with('menus')->where('is_active', 1)->get();
     }
 
     /**
      * @param int $id
-     * @return Order|null
+     * @return MenuCategory|null
      */
-    public function getById(int $id): ?Order
+    public function getById(int $id): ?MenuCategory
     {
         return $this->model->find($id);
     }
 
     /**
      * @param array $attributes
-     * @return Order
+     * @return MenuCategory
      */
-    public function create(array $attributes): Order
+    public function create(array $attributes): MenuCategory
     {
         return $this->model->create($attributes);
     }
@@ -55,9 +56,9 @@ class OrderRepository
     /**
      * @param int $id
      * @param array $attributes
-     * @return Order
+     * @return MenuCategory
      */
-    public function update(int $id, array $attributes): Order
+    public function update(int $id, array $attributes): MenuCategory
     {
         $user = $this->getById($id);
         $user->update($attributes);

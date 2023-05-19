@@ -20,6 +20,8 @@ class MenuCategoryResource extends JsonResource
         return [
             'id'         => $menuCategory->id,
             'name'       => $menuCategory->name,
+            'menus'      => MenuResource::collection($menuCategory->menus),
+            'thumbnail'  => $menuCategory->thumbnail,
             'created_at' => $menuCategory->created_at,
             'updated_at' => $menuCategory->updated_at,
         ];

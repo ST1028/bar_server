@@ -20,6 +20,11 @@ class OrderResource extends JsonResource
         return [
             'id'         => $order->id,
             'menu'       => new MenuResource($order->menu),
+            'price'      => $order->price,
+            'menu_id'    => $order->menu_id,
+            'blend_id'   => $order->blend_id,
+            'friend'     => $order->friend,
+            'friend_id'  => $order->friend_id,
             'created_at' => $order->created_at,
             'updated_at' => $order->updated_at,
         ];

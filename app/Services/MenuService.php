@@ -27,6 +27,11 @@ class MenuService
         return $this->repository->getAll();
     }
 
+    public function getActiveAll(): Collection
+    {
+        return $this->repository->getActiveAll();
+    }
+
     /**
      * @param int $id
      * @return Menu|null

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AuthLoginRequest extends FormRequest
+class OrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class AuthLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'account' => 'required',
-            'password' => 'required'
+            'menu_id'      => ['required', 'numeric', 'exists:menus,id'],
+            'friend_ids'   => ['required', 'array'],
+            'friend_ids.*' => ['required', 'exists:friends,id'],
+            'blend_id'     => ['nullable', 'numeric', 'exists:blends,id']
         ];
     }
 }

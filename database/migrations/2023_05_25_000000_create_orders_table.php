@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_category_id');
-            $table->string('name');
+            $table->unsignedBigInteger('friend_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->unsignedBigInteger('blend_id')->nullable();
             $table->integer('price');
-            $table->string('description')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->string('thumbnail')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('menu_category_id')->references('id')->on('menu_categories');
+            $table->foreign('friend_id')->references('id')->on('friends');
+            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('blend_id')->references('id')->on('blends');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('orders');
     }
 };

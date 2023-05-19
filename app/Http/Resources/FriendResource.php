@@ -18,11 +18,12 @@ class FriendResource extends JsonResource
         $friend = $this->resource;
 
         return [
-            'id'         => $friend->id,
-            'name'       => $friend->name,
-            'orders'     => OrderResource::collection($friend->orders),
-            'created_at' => $friend->created_at,
-            'updated_at' => $friend->updated_at,
+            'id'          => $friend->id,
+            'name'        => $friend->name,
+            'orders'      => OrderResource::collection($friend->orders),
+            'total_price' => $friend->orders->sum('price'),
+            'created_at'  => $friend->created_at,
+            'updated_at'  => $friend->updated_at,
         ];
     }
 }

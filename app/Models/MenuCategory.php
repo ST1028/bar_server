@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\MenuCategory
  *
  * @property int $id
  * @property string $name
+ * @property string $thumbnail
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Menu[] $menus
  * @method static \Illuminate\Database\Eloquent\Builder|MenuCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuCategory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|MenuCategory query()
@@ -35,4 +38,8 @@ class MenuCategory extends Model
     protected $fillable = [
     ];
 
+    public function menus(): HasMany
+    {
+        return $this->hasMany(Menu::class);
+    }
 }

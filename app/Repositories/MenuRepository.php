@@ -27,6 +27,14 @@ class MenuRepository
     }
 
     /**
+     * @return Collection|Menu[]
+     */
+    public function getActiveAll(): Collection
+    {
+        return $this->model->where('status', 1)->get();
+    }
+
+    /**
      * @param int $id
      * @return Menu|null
      */

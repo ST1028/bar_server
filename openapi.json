@@ -100,15 +100,12 @@
                         "type": "string"
                     },
                     "created_at": {
-                        "format": "date-time",
                         "type": "string"
                     },
                     "updated_at": {
-                        "format": "date-time",
                         "type": "string"
                     },
                     "deleted_at": {
-                        "format": "date-time",
                         "type": "string"
                     }
                 }

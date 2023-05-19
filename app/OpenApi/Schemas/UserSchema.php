@@ -25,9 +25,9 @@ class UserSchema extends SchemaFactory implements Reusable
                 Schema::string('name')->default(null),
                 Schema::string('password')->default(null),
                 Schema::string('remember_token')->default(null),
-                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME)->default(null),
-                Schema::string('updated_at')->format(Schema::FORMAT_DATE_TIME)->default(null),
-                Schema::string('deleted_at')->format(Schema::FORMAT_DATE_TIME)->default(null)
+                Schema::string('created_at')->default(null),
+                Schema::string('updated_at')->default(null),
+                Schema::string('deleted_at')->default(null)
             );
     }
 }

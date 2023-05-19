@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
-use App\Models\Order;
-use App\Repositories\OrderRepository;
+use App\Models\MenuCategory;
+use App\Repositories\MenuCategoryRepository;
 use Illuminate\Support\Collection;
 
-class OrderService
+class MenuCategoryService
 {
-    /** @var OrderRepository */
-    protected OrderRepository $repository;
+    /** @var MenuCategoryRepository */
+    protected MenuCategoryRepository $repository;
 
     /**
-     * @param OrderRepository $repository
+     * @param MenuCategoryRepository $repository
      */
-    public function __construct(OrderRepository $repository)
+    public function __construct(MenuCategoryRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -34,18 +34,18 @@ class OrderService
 
     /**
      * @param int $id
-     * @return Order|null
+     * @return MenuCategory|null
      */
-    public function getById(int $id): ?Order
+    public function getById(int $id): ?MenuCategory
     {
         return $this->repository->getById($id);
     }
 
     /**
      * @param array $data
-     * @return Order
+     * @return MenuCategory
      */
-    public function create(array $data): Order
+    public function create(array $data): MenuCategory
     {
         return $this->repository->create($data);
     }
@@ -53,9 +53,9 @@ class OrderService
     /**
      * @param int $id
      * @param array $data
-     * @return Order
+     * @return MenuCategory
      */
-    public function update(int $id, array $data): Order
+    public function update(int $id, array $data): MenuCategory
     {
         return $this->repository->update($id, $data);
     }
