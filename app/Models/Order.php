@@ -45,7 +45,8 @@ class Order extends Model
         'menu_id',
         'friend_id',
         'price',
-        'blend_id'
+        'blend_id',
+        'remarks'
     ];
 
     public function menu(): BelongsTo

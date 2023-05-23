@@ -74,6 +74,7 @@ class OrderController extends Controller
                 compact('friends', 'blend', 'menu', 'remarks')
             );
             $this->lineNotifyService->handle($lineNoticeText);
+            \DB::commit();
             return new ResultResource((object)['result' => true]);
         } catch (\Exception $e) {
             \DB::rollBack();

@@ -97,6 +97,7 @@ class InitSeeder extends Seeder
         ['name' => '¥300メニュー', 'menu_category_id' => 11, 'price' => 300, 'recipe' => '', 'description' => ''],
         ['name' => '¥350メニュー', 'menu_category_id' => 11, 'price' => 350, 'recipe' => '', 'description' => ''],
         ['name' => '¥400メニュー', 'menu_category_id' => 11, 'price' => 400, 'recipe' => '', 'description' => ''],
+        ['name' => 'ハイボール', 'menu_category_id' => 3, 'price' => 300, 'recipe' => '', 'description' => '']
     ];
 
     const Blends = [
