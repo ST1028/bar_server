@@ -55,16 +55,12 @@ class OrderController extends Controller
     {
         \DB::beginTransaction();
         try {
-            \Log::info($request->all());
             $menuId = $request->input('menu_id');
             $blendId = $request->input('blend_id');
             $menu = $this->menuService->getById($menuId);
-            \Log::info("step0");
             $remarks = $request->input('remarks', '');
-            \Log::info("step1");
             $blend = $blendId != null ? $menu->blends()->where('blend_id', $blendId)->first(): null;
             $friends = $request->user()->friends()->whereIn('id', $request->input('friend_ids', []))->get();
-            \Log::info("step2");
             foreach ($request->input('friend_ids', []) as $friendId) {
                 $this->service->create([
                     'friend_id' => $friendId,
@@ -74,17 +70,13 @@ class OrderController extends Controller
                     'remarks'   => $remarks,
                 ]);
             }
-            \Log::info("step3");
             $lineNoticeText = (string) view('api.line_notify',
                 compact('friends', 'blend', 'menu', 'remarks')
             );
-            \Log::info("step4");
             $this->lineNotifyService->handle($lineNoticeText);
-            \Log::info("step5");
             \DB::commit();
             return new ResultResource((object)['result' => true]);
         } catch (\Exception $e) {
-            \Log::info($e);
             \DB::rollBack();
             throw $e;
         }
