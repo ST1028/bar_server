@@ -2,7 +2,7 @@
 📝ご注文内容
 ■{{$menu->name}} @if ($blend)({{$blend->name}})@endif
 
-@if ($remarks)
+@if (isset($remarks) and $remarks)
     【備考】
     {{$remarks}}
 @endif
