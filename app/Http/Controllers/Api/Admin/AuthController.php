@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use App\Enums\SanctumAbility;
 use App\Http\Controllers\Controller;
@@ -31,9 +31,9 @@ class AuthController extends Controller
     {
         $account = $request->input('account');
         $password = $request->input('password');
-        if (\Auth::attempt(['account' => $account, 'password' => $password])) {
-            $user = \Auth::user();
-            $token = $user->createToken($user->id, [SanctumAbility::User])->plainTextToken;
+        if (\Auth::guard('admin')->attempt(['account' => $account, 'password' => $password])) {
+            $admin = \Auth::guard('admin')->user();
+            $token = $admin->createToken($admin->id, [SanctumAbility::Admin])->plainTextToken;
             return new AuthResource((object) ['token' => $token]);
         }
         throw new AuthenticationException();

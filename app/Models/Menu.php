@@ -47,6 +47,14 @@ class Menu extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
+        'menu_category_id',
+        'price',
+        'description',
+        'recipe',
+        'is_active',
+        'is_remarks_required',
+        'thumbnail',
     ];
 
     public function menuCategory(): BelongsTo

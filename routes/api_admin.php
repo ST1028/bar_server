@@ -2,11 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\MenuController;
-use App\Http\Controllers\Api\MenuCategoryController;
-use App\Http\Controllers\Api\FriendController;
-use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\Admin\MenuController;
+use App\Http\Controllers\Api\Admin\MenuCategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,23 +19,24 @@ use App\Http\Controllers\Api\OrderController;
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::middleware(['auth:sanctum', 'abilities:'.\App\Enums\SanctumAbility::User])->group(function () {
+Route::middleware(['auth:sanctum', 'abilities:'.\App\Enums\SanctumAbility::Admin])->group(function () {
     Route::prefix('users')->group(function() {
         Route::get('me', [AuthController::class, 'me']);
     });
 
-    Route::prefix('friends')->group(function() {
-        Route::get('', [FriendController::class, 'index']);
-        Route::post('', [FriendController::class, 'store']);
-    });
     Route::prefix('menus')->group(function() {
         Route::get('', [MenuController::class, 'index']);
+        Route::get('{id}', [MenuController::class, 'show']);
+        Route::post('', [MenuController::class, 'store']);
+        Route::put('{id}', [MenuController::class, 'update']);
+        Route::delete('{id}', [MenuController::class, 'delete']);
     });
+
     Route::prefix('menu_categories')->group(function() {
         Route::get('', [MenuCategoryController::class, 'index']);
-    });
-    Route::prefix('orders')->group(function() {
-        Route::get('', [OrderController::class, 'index']);
-        Route::post('', [OrderController::class, 'store']);
+        Route::get('{id}', [MenuCategoryController::class, 'show']);
+        Route::post('', [MenuCategoryController::class, 'store']);
+        Route::put('{id}', [MenuCategoryController::class, 'update']);
+        Route::delete('{id}', [MenuCategoryController::class, 'delete']);
     });
 });
