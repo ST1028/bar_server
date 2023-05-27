@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('menu_id');
             $table->unsignedBigInteger('blend_id')->nullable();
             $table->integer('price');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
