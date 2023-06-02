@@ -28,6 +28,14 @@ class FriendService
     }
 
     /**
+     * @return Collection
+     */
+    public function getActiveAll(): Collection
+    {
+        return $this->repository->getActiveAll();
+    }
+
+    /**
      * @param int $id
      * @return Friend|null
      */
@@ -53,6 +61,15 @@ class FriendService
     public function update(int $id, array $data): Friend
     {
         return $this->repository->update($id, $data);
+    }
+
+    /**
+     * @return void
+     */
+    public function updateAllDisabled(): void
+    {
+        $data = ['is_active' => false];
+        $this->repository->updateAll($data);
     }
 
     /**

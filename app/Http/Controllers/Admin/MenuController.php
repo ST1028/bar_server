@@ -1,59 +1,74 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MenuDeleteRequest;
 use App\Http\Requests\Admin\MenuShowRequest;
 use App\Http\Requests\Admin\MenuStoreRequest;
 use App\Http\Requests\Admin\MenuUpdateRequest;
-use App\Http\Resources\MenuCategoryResource;
 use App\Http\Resources\MenuResource;
 use App\Http\Resources\ResultResource;
-use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
+use App\Models\MenuCategory;
+use App\Services\MenuCategoryService;
 use App\Services\MenuService;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class MenuController extends Controller
 {
     /** @var MenuService */
     protected MenuService $service;
 
+    /** @var MenuCategoryService */
+    protected MenuCategoryService $menuCategoryService;
+
     /**
      * @param MenuService $service
+     * @param MenuCategoryService $menuCategoryService
      */
-    public function __construct(MenuService $service)
+    public function __construct(MenuService $service, MenuCategoryService $menuCategoryService)
     {
         $this->service = $service;
+        $this->menuCategoryService = $menuCategoryService;
     }
 
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return View
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request): View
     {
         $menus = $this->service->getAll();
-        return MenuResource::collection($menus);
+        return view('admin.menu.index', compact('menus'));
     }
 
     /**
      * @param MenuShowRequest $request
-     * @param $id
-     * @return MenuResource
+     * @param int $id
+     * @return View
      */
-    public function show(MenuShowRequest $request, $id): MenuResource
+    public function show(MenuShowRequest $request, int $id): View
     {
         $menu = $this->service->getById($id);
-        return new MenuResource($menu);
+        $menuCategories = $this->menuCategoryService->getAll();
+        return view('admin.menu.show', compact('menu', 'menuCategories'));
+    }
+
+    /**
+     * @return View
+     */
+    public function create(): View
+    {
+        $menuCategories = $this->menuCategoryService->getAll();
+        return view('admin.menu.show', compact('menuCategories'));
     }
 
     /**
      * @param MenuStoreRequest $request
-     * @return MenuResource
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function store(MenuStoreRequest $request): MenuResource
+    public function store(MenuStoreRequest $request): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $menu = $this->service->create([
             'name' => $request->get('name'),
@@ -64,15 +79,15 @@ class MenuController extends Controller
             'is_active' => $request->get('is_active'),
             'is_remarks_required' => $request->get('is_remarks_required')
         ]);
-        return new MenuResource($menu);
+        return \redirect(route('menu.show', ['id' => $menu->id]));
     }
 
     /**
      * @param MenuUpdateRequest $request
      * @param $id
-     * @return MenuResource
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function update(MenuUpdateRequest $request, $id): MenuResource
+    public function update(MenuUpdateRequest $request, $id): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $menu = $this->service->update($id, [
             'name' => $request->get('name'),
@@ -83,17 +98,17 @@ class MenuController extends Controller
             'is_active' => $request->get('is_active'),
             'is_remarks_required' => $request->get('is_remarks_required')
         ]);
-        return new MenuResource($menu);
+        return \redirect(route('menu.show', ['id' => $menu->id]));
     }
 
     /**
      * @param MenuDeleteRequest $request
      * @param $id
-     * @return ResultResource
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
-    public function delete(MenuDeleteRequest $request, $id): ResultResource
+    public function delete(MenuDeleteRequest $request, $id): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $this->service->delete($id);
-        return new ResultResource((object) ['result' => true]);
+        return \redirect(route('menu.index'));
     }
 }

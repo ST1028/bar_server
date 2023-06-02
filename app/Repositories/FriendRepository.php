@@ -27,6 +27,14 @@ class FriendRepository
     }
 
     /**
+     * @return Collection
+     */
+    public function getActiveAll(): Collection
+    {
+        return $this->model->where('is_active', 1)->get();
+    }
+
+    /**
      * @param int $id
      * @return Friend|null
      */
@@ -54,6 +62,18 @@ class FriendRepository
         $user = $this->getById($id);
         $user->update($attributes);
         return $user;
+    }
+
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function updateAll(array $data): void
+    {
+        $friends = $this->getActiveAll();
+        foreach ($friends as $friend) {
+            $friend->update($data);
+        }
     }
 
     /**

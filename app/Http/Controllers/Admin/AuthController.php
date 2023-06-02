@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Enums\SanctumAbility;
 use App\Http\Controllers\Controller;
@@ -9,9 +9,15 @@ use App\Http\Resources\AuthResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AuthController extends Controller
 {
+    public function index(): View
+    {
+        return view('admin.auth');
+    }
+
     /**
      * @param Request $request
      * @return UserResource

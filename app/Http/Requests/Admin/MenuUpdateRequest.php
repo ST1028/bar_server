@@ -26,8 +26,8 @@ class MenuUpdateRequest extends FormRequest
             'name' => ['required', 'string'],
             'menu_category_id' => ['required', 'integer', 'exists:menu_categories,id'],
             'price' => ['required', 'numeric'],
-            'description' => ['required', 'string'],
-            'recipe' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
+            'recipe' => ['nullable', 'string'],
             'is_active' => ['required', 'boolean'],
             'is_remarks_required' => ['required', 'boolean']
         ];

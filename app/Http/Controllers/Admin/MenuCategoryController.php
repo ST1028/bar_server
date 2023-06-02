@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MenuCategoryDeleteRequest;
@@ -68,7 +68,7 @@ class MenuCategoryController extends Controller
      * @param $id
      * @return MenuCategoryResource
      */
-    public function update(MenuCategoryUpdateRequest $request, $id): MenuCategoryResource
+    public function update(MenuCategoryUpdateRequest $request, $id): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $menu = $this->service->update($id, [
             'name'                   => $request->get('name'),
@@ -77,7 +77,7 @@ class MenuCategoryController extends Controller
             'thumbnail'              => '',
             'default_menu_thumbnail' => ''
         ]);
-        return new MenuCategoryResource($menu);
+        return \redirect(route('menu.show', ['id' => $id]));
     }
 
     /**
@@ -88,6 +88,6 @@ class MenuCategoryController extends Controller
     public function delete(MenuCategoryDeleteRequest $request, $id): ResultResource
     {
         $this->service->delete($id);
-        return new ResultResource((object) ['result' => true]);
+        return new ResultResource((object)['result' => true]);
     }
 }
