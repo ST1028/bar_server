@@ -28,7 +28,7 @@ Route::prefix('menus')->group(function() {
     Route::get('', [MenuController::class, 'index'])->name('menu.index');
     Route::get('detail/{id}', [MenuController::class, 'show'])->name('menu.show');
     Route::get('create', [MenuController::class, 'create'])->name('menu.create');
-    Route::post('', [MenuController::class, 'store'])->name('menu.store');
+    Route::post('create', [MenuController::class, 'store'])->name('menu.store');
     Route::post('{id}', [MenuController::class, 'update'])->name('menu.update');
     Route::delete('{id}', [MenuController::class, 'delete'])->name('menu.delete');
 });

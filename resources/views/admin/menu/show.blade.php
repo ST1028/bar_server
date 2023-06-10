@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @if(session('success'))
+            <div class="alert alert-primary" role="alert">
+                {{session('message')}}
+            </div>
+            @endif
+
             <div class="card">
                 <form method="post" action="{{isset($menu) ? route('menu.update', ['id' => $menu->id]) : route('menu.store')}}">
                     @csrf
@@ -22,14 +28,38 @@
                             <label for="category" class="col-sm-2 col-form-label">カテゴリー</label>
                             <div class="col-sm-10">
                                 <select class="form-select" name="menu_category_id" aria-label="Default select example">
+                                    <option>--選択してください--</option>
                                     @foreach ($menuCategories as $menuCategory)
-                                        <option @if ($menu->menuCategory->id ?? null == $menuCategory->id) selected @endif value="{{$menuCategory->id}}">
+                                        <option @if (isset($menu->menuCategory->id) && $menu->menuCategory->id == $menuCategory->id) selected @endif value="{{$menuCategory->id}}">
                                             {{$menuCategory->name}}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label for="category" class="col-sm-2 col-form-label">割り方</label>
+                            <div class="col-sm-10">
+                                @foreach ($blends as $blend)
+                                    <div class="form-check form-check-inline">
+                                        <input
+                                            class="form-check-input"
+                                            name="blends[]"
+                                            type="checkbox"
+                                            id="inlineCheckbox{{$blend->id}}"
+                                            value="{{$blend->id}}"
+                                            @if (isset($menu->blends) && $menu->blends->where('id', $blend->id)->first())
+                                            checked
+                                            @endif
+                                        >
+                                        <label class="form-check-label" for="inlineCheckbox{{$blend->id}}">{{$blend->name}}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+
                         <div class="mb-3 row">
                             <label for="name" class="col-sm-2 col-form-label">名前</label>
                             <div class="col-sm-10">

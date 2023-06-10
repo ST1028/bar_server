@@ -29,7 +29,9 @@ class MenuUpdateRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'recipe' => ['nullable', 'string'],
             'is_active' => ['required', 'boolean'],
-            'is_remarks_required' => ['required', 'boolean']
+            'is_remarks_required' => ['required', 'boolean'],
+            'blends' => ['array', 'nullable'],
+            'blends.*' => ['exists:blends,id', 'nullable'],
         ];
     }
 

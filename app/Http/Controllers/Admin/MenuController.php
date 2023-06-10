@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\MenuStoreRequest;
 use App\Http\Requests\Admin\MenuUpdateRequest;
 use App\Http\Resources\MenuResource;
 use App\Http\Resources\ResultResource;
+use App\Models\Blend;
 use App\Models\MenuCategory;
 use App\Services\MenuCategoryService;
 use App\Services\MenuService;
@@ -27,8 +28,10 @@ class MenuController extends Controller
      * @param MenuService $service
      * @param MenuCategoryService $menuCategoryService
      */
-    public function __construct(MenuService $service, MenuCategoryService $menuCategoryService)
-    {
+    public function __construct(
+        MenuService $service,
+        MenuCategoryService $menuCategoryService
+    ) {
         $this->service = $service;
         $this->menuCategoryService = $menuCategoryService;
     }
@@ -52,7 +55,8 @@ class MenuController extends Controller
     {
         $menu = $this->service->getById($id);
         $menuCategories = $this->menuCategoryService->getAll();
-        return view('admin.menu.show', compact('menu', 'menuCategories'));
+        $blends = Blend::all();
+        return view('admin.menu.show', compact('menu', 'menuCategories', 'blends'));
     }
 
     /**
@@ -61,7 +65,8 @@ class MenuController extends Controller
     public function create(): View
     {
         $menuCategories = $this->menuCategoryService->getAll();
-        return view('admin.menu.show', compact('menuCategories'));
+        $blends = Blend::all();
+        return view('admin.menu.show', compact('menuCategories', 'blends'));
     }
 
     /**
@@ -79,7 +84,10 @@ class MenuController extends Controller
             'is_active' => $request->get('is_active'),
             'is_remarks_required' => $request->get('is_remarks_required')
         ]);
-        return \redirect(route('menu.show', ['id' => $menu->id]));
+        if (! empty($request->get('blends'))) {
+            $menu->blends()->attach($request->get('blends'));
+        }
+        return \redirect(route('menu.show', ['id' => $menu->id]))->with(['success' => true, 'message' => '作成しました']);
     }
 
     /**
@@ -98,7 +106,11 @@ class MenuController extends Controller
             'is_active' => $request->get('is_active'),
             'is_remarks_required' => $request->get('is_remarks_required')
         ]);
-        return \redirect(route('menu.show', ['id' => $menu->id]));
+        $menu->blends()->detach();
+        if (! empty($request->get('blends'))) {
+            $menu->blends()->attach($request->get('blends'));
+        }
+        return \redirect(route('menu.show', ['id' => $menu->id]))->with(['success' => true, 'message' => '更新しました']);
     }
 
     /**
@@ -109,6 +121,6 @@ class MenuController extends Controller
     public function delete(MenuDeleteRequest $request, $id): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
     {
         $this->service->delete($id);
-        return \redirect(route('menu.index'));
+        return \redirect(route('menu.index'))->with(['success' => true, 'message' => '削除しました']);
     }
 }

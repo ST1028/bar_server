@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
-use App\Http\Controllers\Admin\MenuCategoryController;
-use App\Http\Controllers\Admin\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*

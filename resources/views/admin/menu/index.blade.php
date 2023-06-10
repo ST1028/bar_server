@@ -4,8 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <a href="{{route('menu.create')}}" class="btn btn-primary">追加</a>
             <div class="card">
-                <div class="card-header">{{ __('Menus') }}<button type="button" class="btn btn-primary"><a href="{{route('menu.create')}}">追加</a></button>
+                <div class="card-header">{{ __('Menus') }}
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -28,8 +29,14 @@
                                 <td>
                                     <a href="{{route('menu.show', ['id' => $menu->id])}}">{{$menu->name}}</a>
                                 </td>
-                                <td>{{$menu->price}}</td>
-                                <td>{{$menu->is_active ? '公開': '非公開'}}</td>
+                                <td>¥{{$menu->price}}</td>
+                                <td>
+                                    @if ($menu->is_active)
+                                        <label class="btn btn-primary">公開</label>
+                                    @else
+                                        <label class="btn btn-secondary">非公開</label>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
 
