@@ -29,6 +29,14 @@ class OrderRepository
     /**
      * @return Collection|Order[]
      */
+    public function getNotPay(): Collection
+    {
+        return $this->model->where('is_pay', false)->get();
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
     public function getActiveAll(): Collection
     {
         return $this->model->where('status', 1)->get();

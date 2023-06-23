@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\FriendController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,9 @@ Route::prefix('menu_categories')->group(function() {
 Route::prefix('friends')->group(function() {
     Route::get('', [FriendController::class, 'index'])->name('friend.index');
     Route::post('all/disabled', [FriendController::class, 'batchUpdate'])->name('friend.all.disabled');
+});
+
+Route::prefix('orders')->group(function() {
+    Route::get('', [OrderController::class, 'index'])->name('order.index');
+    Route::get('{id}/delete', [OrderController::class, 'delete'])->name('order.delete');
 });

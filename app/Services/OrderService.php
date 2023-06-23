@@ -27,6 +27,14 @@ class OrderService
         return $this->repository->getAll();
     }
 
+    /**
+     * @return Collection
+     */
+    public function getNotPay(): Collection
+    {
+        return $this->repository->getNotPay();
+    }
+
     public function getActiveAll(): Collection
     {
         return $this->repository->getActiveAll();

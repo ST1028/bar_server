@@ -68,6 +68,7 @@ class OrderController extends Controller
                     'blend_id'  => $blendId,
                     'price'     => $menu->price,
                     'remarks'   => $remarks,
+                    'is_pay'    => false
                 ]);
             }
             $lineNoticeText = (string) view('api.line_notify',

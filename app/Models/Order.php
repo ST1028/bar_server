@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Order
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $menu_id
  * @property int $blend_id
  * @property int $price
+ * @property bool $is_pay
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
@@ -34,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -46,7 +48,8 @@ class Order extends Model
         'friend_id',
         'price',
         'blend_id',
-        'remarks'
+        'remarks',
+        'is_pay'
     ];
 
     public function menu(): BelongsTo
