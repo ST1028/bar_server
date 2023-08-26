@@ -33,7 +33,7 @@ class MenuCategoryController extends Controller
      */
     public function index(Request $request): View
     {
-        $menuCategories = $this->service->getActiveAll();
+        $menuCategories = $this->service->getAll();
         return view('admin.category.index', compact('menuCategories'));
     }
 
