@@ -33,6 +33,9 @@
                             <a class="nav-link" href="{{route('menu.index')}}">Menus</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('menuCategory.index')}}">Categories</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('friend.index')}}">Friends</a>
                         </li>
                         <li class="nav-item">

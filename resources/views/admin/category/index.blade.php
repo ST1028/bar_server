@@ -33,7 +33,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('menuCategory.status.switch', ['id' => $menu->id])}}">
+                                    <a href="{{route('menuCategory.status.switch', ['id' => $menuCategory->id])}}">
                                         @if ($menuCategory->is_active)
                                             非公開に変更する
                                         @else
