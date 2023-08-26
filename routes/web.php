@@ -35,11 +35,13 @@ Route::prefix('menus')->group(function() {
 });
 
 Route::prefix('menu_categories')->group(function() {
-    Route::get('', [MenuCategoryController::class, 'index']);
+    Route::get('', [MenuCategoryController::class, 'index'])->name('menuCategory.index');
     Route::get('{id}', [MenuCategoryController::class, 'show']);
     Route::post('', [MenuCategoryController::class, 'store']);
     Route::post('{id}', [MenuCategoryController::class, 'update']);
     Route::delete('{id}', [MenuCategoryController::class, 'delete']);
+
+    Route::get('{id}/status/switch', [MenuCategoryController::class, 'statusSwitch'])->name('menuCategory.status.switch');
 });
 
 Route::prefix('friends')->group(function() {

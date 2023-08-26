@@ -12,6 +12,7 @@ use App\Http\Resources\ResultResource;
 use App\Services\MenuCategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\View\View;
 
 class MenuCategoryController extends Controller
 {
@@ -28,12 +29,12 @@ class MenuCategoryController extends Controller
 
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return View
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request): View
     {
         $menuCategories = $this->service->getActiveAll();
-        return MenuCategoryResource::collection($menuCategories);
+        return view('admin.category.index', compact('menuCategories'));
     }
 
     /**
@@ -78,6 +79,21 @@ class MenuCategoryController extends Controller
             'default_menu_thumbnail' => ''
         ]);
         return \redirect(route('menu.show', ['id' => $id]));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function statusSwitch($id): \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+    {
+        $menuCategory = $this->service->getById($id);
+        $isActive = 1;
+        if ($menuCategory->is_active) {
+            $isActive = 0;
+        }
+        $this->service->update($id, ['is_active' => $isActive]);
+        return \redirect(route('menuCategory.index', ['id' => $id]))->with(['success' => true, 'message' => '更新しました']);
     }
 
     /**
