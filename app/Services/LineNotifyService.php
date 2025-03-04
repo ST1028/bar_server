@@ -2,19 +2,19 @@
 
 namespace App\Services;
 
-use App\Models\Menu;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class LineNotifyService
 {
     /** @var array */
     const TOKEN = [
         'test' => 'YpNVt5x7PQ8asd88zHoPhpj8RMf1RfdDtE1gOpE5rMW',
-        'prd' => '99z3GKWjqHlQTWACa77vCpZTR2ctvMgsF28nP4HuSl6',
+        'prd' => 'C6edc1214f21a43f538fdb72881a323a4',
     ];
 
     /** @var string */
-    const URI = 'https://notify-api.line.me/api/notify';
+    private const URI = 'https://api.line.me/v2/bot/message/push';
 
     /**
      * @param string $text
@@ -26,17 +26,34 @@ class LineNotifyService
     {
         if (! $text) return false;
 
-        $uri = self::URI;
         $client = new Client();
-        $client->post($uri, [
-            'headers' => [
-                'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => 'Bearer '. optional(self::TOKEN)[$tokenType],
+        $payload = [
+            'to' => 'Cfd698e9df75085550fd7a8466004aa30',
+            'messages' => [
+                [
+                    'type' => 'text',
+                    'text' => $text,
+                ],
             ],
-            'form_params' => [
-                'message' => $text
-            ]
-        ]);
+        ];
+
+        try {
+            $response = $client->post(self::URI, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN[$tokenType],
+                ],
+                'json' => $payload,
+            ]);
+
+            if ($response->getStatusCode() !== 200) {
+                // エラーハンドリング
+                throw new \RuntimeException('LINE Messaging APIへのリクエストが失敗しました。');
+            }
+        } catch (RequestException $e) {
+            // エラーハンドリング
+            throw new \RuntimeException('LINE Messaging APIへのリクエスト中にエラーが発生しました: ' . $e->getMessage());
+        }
         return true;
     }
 }
