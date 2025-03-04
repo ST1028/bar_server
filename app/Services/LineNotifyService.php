@@ -10,7 +10,7 @@ class LineNotifyService
     /** @var array */
     const TOKEN = [
         'test' => 'YpNVt5x7PQ8asd88zHoPhpj8RMf1RfdDtE1gOpE5rMW',
-        'prd' => 'C6edc1214f21a43f538fdb72881a323a4',
+        'prd' => '0o7YAGqIg5FFILgp7hsZciuiaGEFaGeBfjoF8vjjyd6Py19f1mZbXqvXTKsenh1ocWCnsa9thKubHNbs3CIw6F9hQlovwvwYAr/Y7q4QtX4m6348j/DL8od/LKqBXxLBbKjDmSgXrFvkE1udzmgGaAdB04t89/1O/w1cDnyilFU=',
     ];
 
     /** @var string */
@@ -28,7 +28,7 @@ class LineNotifyService
 
         $client = new Client();
         $payload = [
-            'to' => 'Cfd698e9df75085550fd7a8466004aa30',
+            'to' => 'C6edc1214f21a43f538fdb72881a323a4', // Bar 注文メニューグループ
             'messages' => [
                 [
                     'type' => 'text',
