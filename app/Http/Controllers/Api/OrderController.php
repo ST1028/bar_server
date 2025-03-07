@@ -53,8 +53,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request): ResultResource
     {
-        \DB::beginTransaction();
-        try {
+        \DB::transaction(function () use($request) {
             $menuId = $request->input('menu_id');
             $blendId = $request->input('blend_id');
             $menu = $this->menuService->getById($menuId);
@@ -71,15 +70,15 @@ class OrderController extends Controller
                     'is_pay'    => false
                 ]);
             }
-            $lineNoticeText = (string) view('api.line_notify',
-                compact('friends', 'blend', 'menu', 'remarks')
-            );
-            $this->lineNotifyService->handle($lineNoticeText);
-            \DB::commit();
-            return new ResultResource((object)['result' => true]);
-        } catch (\Exception $e) {
-            \DB::rollBack();
-            throw $e;
-        }
+            try {
+                $lineNoticeText = (string) view('api.line_notify',
+                    compact('friends', 'blend', 'menu', 'remarks')
+                );
+                $this->lineNotifyService->handle($lineNoticeText);
+            } catch (\Exception $e) {
+                \Log::error($e->getMessage());
+            }
+        });
+        return new ResultResource((object)['result' => true]);
     }
 }
