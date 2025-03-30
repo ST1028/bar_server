@@ -38,7 +38,7 @@ class SlackAlertNotification extends Notification
             ->attachment(function ($attachment) {
                 $attachment->title($this->title)
                     ->fields([
-                        '時刻' => now()->format('m-d H:i'),
+                        '時刻' => now()->toDateTimeString(),
                     ]);
             });
     }
