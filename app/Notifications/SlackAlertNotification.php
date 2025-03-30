@@ -36,10 +36,7 @@ class SlackAlertNotification extends Notification
         return (new SlackMessage)
             ->content('<!channel>'.$this->message)
             ->attachment(function ($attachment) {
-                $attachment->title($this->title)
-                    ->fields([
-                        '時刻' => now()->toDateTimeString(),
-                    ]);
+                $attachment->title($this->title);
             });
     }
 
