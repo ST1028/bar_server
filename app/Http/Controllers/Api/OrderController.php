@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ResultResource;
 use App\Models\Blend;
+use App\Notifications\SlackAlertNotification;
 use App\Services\LineNotifyService;
 use App\Services\MenuService;
 use Illuminate\Http\Request;
@@ -71,10 +72,11 @@ class OrderController extends Controller
                 ]);
             }
             try {
-                $lineNoticeText = (string) view('api.line_notify',
+                $noticeText = (string) view('api.line_notify',
                     compact('friends', 'blend', 'menu', 'remarks')
                 );
-                $this->lineNotifyService->handle($lineNoticeText);
+                \Notification::route('slack', config('services.slack.webhook_url'))
+                    ->notify(new SlackAlertNotification('新規注文', $noticeText));
             } catch (\Exception $e) {
                 \Log::error($e->getMessage());
             }
