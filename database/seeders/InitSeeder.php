@@ -15,9 +15,11 @@ class InitSeeder extends Seeder
 
     const Users = [
         ['name' => 'ジェイ', 'account' => 'j1028'],
-        ['name' => 'なお', 'account' => 'nao0001'],
-        ['name' => 'なつき', 'account' => 'natuki001'],
-        ['name' => 'はるか', 'account' => 'haruka0001'],
+        ['name' => 'スタッフ1', 'account' => 'staff0001'],
+        ['name' => 'スタッフ2', 'account' => 'staff0002'],
+        ['name' => 'スタッフ3', 'account' => 'staff0003'],
+        ['name' => 'スタッフ4', 'account' => 'staff0004'],
+        ['name' => 'スタッフ5', 'account' => 'staff0005'],
     ];
 
     const MenuCategories = [
