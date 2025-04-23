@@ -2,12 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
 class InitSeeder extends Seeder
 {
+    const Admins = [
+        ['name' => '管理者', 'account' => 'admin3737'],
+    ];
+
     const Users = [
         ['name' => 'ジェイ', 'account' => 'j1028'],
         ['name' => 'なお', 'account' => 'nao0001'],
@@ -16,17 +21,17 @@ class InitSeeder extends Seeder
     ];
 
     const MenuCategories = [
-        ['id' => 1, 'name' => 'ビール', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 2],
-        ['id' => 2, 'name' => 'ワイン', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 3],
-        ['id' => 3, 'name' => 'ウィスキー', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 4],
-        ['id' => 4, 'name' => '日本酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 5],
-        ['id' => 5, 'name' => '果実酒', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 6],
-        ['id' => 6, 'name' => 'ビールカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 8],
-        ['id' => 7, 'name' => 'カクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 7],
-        ['id' => 8, 'name' => 'ノンアル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 10],
-        ['id' => 9, 'name' => 'ソフトドリンク', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 11],
-        ['id' => 10, 'name' => 'ワインカクテル', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 9],
-        ['id' => 11, 'name' => '期間限定', 'thumbnail' => '', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 1],
+        ['id' => 1, 'name' => 'ビール', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/beer.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 2],
+        ['id' => 2, 'name' => 'ワイン', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/wine.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 3],
+        ['id' => 3, 'name' => 'ウィスキー', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/whiskey.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 4],
+        ['id' => 4, 'name' => '日本酒', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/sake.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 5],
+        ['id' => 5, 'name' => '果実酒', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/fruit-alcohol.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 6],
+        ['id' => 6, 'name' => 'ビールカクテル', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/beer-cocktail.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 8],
+        ['id' => 7, 'name' => 'カクテル', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/cocktail.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 7],
+        ['id' => 8, 'name' => 'ノンアル', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/non-alcohol.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 10],
+        ['id' => 9, 'name' => 'ソフトドリンク', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/softdrink.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 11],
+        ['id' => 10, 'name' => 'ワインカクテル', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/wine-cocktail.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 9],
+        ['id' => 11, 'name' => '期間限定', 'thumbnail' => 'https://bar-file.s3.ap-northeast-1.amazonaws.com/limited.png', 'default_menu_thumbnail' => '', 'is_active' => true, 'order' => 1],
     ];
 
     const Menus = [
@@ -113,6 +118,13 @@ class InitSeeder extends Seeder
     public function run(): void
     {
         Artisan::call('migrate:fresh');
+
+        foreach (self::Admins as $admin) {
+            Admin::factory()->create([
+                'account' => $admin['account'],
+                'name' => $admin['name'],
+            ]);
+        }
 
         foreach (self::Users as $user) {
             User::factory()->create([
